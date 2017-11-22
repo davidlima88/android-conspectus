@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/nav_grp1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_explorer"
+            android:icon="@drawable/ic_menu_browser"
+            android:title="Web Explorer" />
+        <item
+            android:id="@+id/nav_bookmarks"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Bookmarks" />
+        <item
+            android:id="@+id/nav_concepts"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Concepts" />
+        <item
+            android:id="@+id/nav_entities"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Entities" />
+        <item
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Categories" />
+        <item
+            android:id="@+id/nav_keywords"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Keywords" />
+    </group>
+    <group android:id="@+id/nav_grp2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Privacy &amp; terms" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Logout" />
+    </group>
+</menu>

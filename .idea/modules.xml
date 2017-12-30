@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-conspectus.iml" filepath="$PROJECT_DIR$/android-conspectus.iml" />
+      <module fileurl="file://C:\Users\Osheen\Documents\GitHub\android-conspectus\android-conspectus.iml" filepath="C:\Users\Osheen\Documents\GitHub\android-conspectus\android-conspectus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Osheen\Documents\GitHub\android-conspectus\app\app.iml" filepath="C:\Users\Osheen\Documents\GitHub\android-conspectus\app\app.iml" />
     </modules>
   </component>
 </project>

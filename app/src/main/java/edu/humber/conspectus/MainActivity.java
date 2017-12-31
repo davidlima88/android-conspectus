@@ -5,19 +5,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+
+import edu.humber.conspectus.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ConceptFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +113,11 @@ public class MainActivity extends AppCompatActivity
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             // Insert the fragment by replacing any existing fragment
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-            LayoutInflater inflater = getLayoutInflater();
-            LinearLayout container = (LinearLayout) findViewById(R.id.flContent);
-            inflater.inflate(R.layout.activity_main, container);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+//            LayoutInflater inflater = getLayoutInflater();
+//            LinearLayout container = (LinearLayout) findViewById(R.id.flContent);
+//            inflater.inflate(R.layout.activity_main, container);
 
             // Highlight the selected item has been done by NavigationView
             item.setChecked(true);
@@ -131,4 +132,10 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
 }

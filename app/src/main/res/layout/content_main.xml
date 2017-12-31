@@ -8,8 +8,10 @@
     tools:context="edu.humber.conspectus.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <WebView
-        android:id="@+id/webview"
+    <LinearLayout
+        android:id="@+id/flContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 </android.support.constraint.ConstraintLayout>

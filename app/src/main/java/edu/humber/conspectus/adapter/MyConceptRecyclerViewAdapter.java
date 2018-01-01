@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import edu.humber.conspectus.R;
 import edu.humber.conspectus.fragment.ConceptFragment.OnListFragmentInteractionListener;
-import edu.humber.conspectus.dummy.DummyContent.DummyItem;
+import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 

@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import edu.humber.conspectus.R;
 import edu.humber.conspectus.adapter.MyEntityRecyclerViewAdapter;
-import edu.humber.conspectus.dummy.DummyContent;
-import edu.humber.conspectus.dummy.DummyContent.DummyItem;
+import edu.humber.conspectus.fragment.dummy.DummyContent;
+import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.

@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.humber.conspectus.adapter.MyConceptRecyclerViewAdapter;
 import edu.humber.conspectus.R;
+import edu.humber.conspectus.adapter.MyKeywordRecyclerViewAdapter;
 import edu.humber.conspectus.fragment.dummy.DummyContent;
 import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
 
@@ -21,7 +21,7 @@ import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ConceptFragment extends Fragment {
+public class KeywordFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,13 +33,13 @@ public class ConceptFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ConceptFragment() {
+    public KeywordFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ConceptFragment newInstance(int columnCount) {
-        ConceptFragment fragment = new ConceptFragment();
+    public static KeywordFragment newInstance(int columnCount) {
+        KeywordFragment fragment = new KeywordFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -58,7 +58,7 @@ public class ConceptFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_concept_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_keyword_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -69,7 +69,7 @@ public class ConceptFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyKeywordRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }

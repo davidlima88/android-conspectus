@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import edu.humber.conspectus.dummy.DummyContent;
+import edu.humber.conspectus.fragment.dummy.DummyContent;
 import edu.humber.conspectus.fragment.CategoryFragment;
 import edu.humber.conspectus.fragment.ConceptFragment;
 import edu.humber.conspectus.fragment.EntityFragment;

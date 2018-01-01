@@ -1,4 +1,4 @@
-package edu.humber.conspectus.dummy;
+package edu.humber.conspectus.fragment.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

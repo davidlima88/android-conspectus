@@ -25,6 +25,10 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Categories" />
         <item
+            android:id="@+id/nav_emotions"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Emotions" />
+        <item
             android:id="@+id/nav_keywords"
             android:icon="@drawable/ic_menu_manage"
             android:title="Keywords" />

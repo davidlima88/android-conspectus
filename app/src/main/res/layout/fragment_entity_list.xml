@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="edu.humber.conspectus.fragment.ConceptFragment"
+    android:name="edu.humber.conspectus.fragment.EntityFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="edu.humber.conspectus.fragment.ConceptFragment"
-    tools:listitem="@layout/fragment_concept" />
+    tools:context="edu.humber.conspectus.fragment.EntityFragment"
+    tools:listitem="@layout/fragment_entity" />

@@ -1,19 +1,19 @@
-package edu.humber.conspectus;
+package edu.humber.conspectus.model;
 
 /**
  * Created by Osheen on 30-12-2017.
  */
 
-public class Concept {
+public class Keyword {
     Integer id;
     Integer bookmarks_id;
 
-    public Concept(Integer id, Integer bookmarks_id) {
+    public Keyword(Integer id, Integer bookmarks_id) {
         this.id = id;
         this.bookmarks_id = bookmarks_id;
     }
 
-    public Concept(Integer bookmarks_id) {
+    public Keyword(Integer bookmarks_id) {
         this.bookmarks_id = bookmarks_id;
     }
 
@@ -35,7 +35,7 @@ public class Concept {
 
     @Override
     public String toString() {
-        return "Concept{" +
+        return "Keyword{" +
                 "id=" + id +
                 ", bookmarks_id=" + bookmarks_id +
                 '}';

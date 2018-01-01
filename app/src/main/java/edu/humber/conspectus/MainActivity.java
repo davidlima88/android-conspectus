@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.humber.conspectus.dummy.DummyContent;
+import edu.humber.conspectus.fragment.CategoryFragment;
+import edu.humber.conspectus.fragment.ConceptFragment;
+import edu.humber.conspectus.fragment.EntityFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConceptFragment.OnListFragmentInteractionListener {
@@ -100,8 +103,10 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = ConceptFragment.class;
         } else if (id == R.id.nav_bookmarks) {
             fragmentClass = ConceptFragment.class;
+        } else if (id==R.id.nav_entities){
+            fragmentClass= EntityFragment.class;
         } else if (id == R.id.nav_categories) {
-            fragmentClass = ConceptFragment.class;
+            fragmentClass = CategoryFragment.class;
         } else if (id == R.id.nav_concepts) {
             fragmentClass = ConceptFragment.class;
         } else if (id == R.id.nav_share) {

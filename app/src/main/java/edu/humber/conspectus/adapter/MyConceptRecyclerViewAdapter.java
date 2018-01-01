@@ -1,4 +1,4 @@
-package edu.humber.conspectus;
+package edu.humber.conspectus.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.humber.conspectus.ConceptFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.R;
+import edu.humber.conspectus.fragment.ConceptFragment.OnListFragmentInteractionListener;
 import edu.humber.conspectus.dummy.DummyContent.DummyItem;
 
 import java.util.List;

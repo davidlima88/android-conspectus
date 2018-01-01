@@ -1,4 +1,4 @@
-package edu.humber.conspectus;
+package edu.humber.conspectus.model;
 
 /**
  * Created by Osheen on 30-12-2017.

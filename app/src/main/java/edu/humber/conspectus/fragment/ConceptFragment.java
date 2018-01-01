@@ -1,4 +1,4 @@
-package edu.humber.conspectus;
+package edu.humber.conspectus.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.humber.conspectus.adapter.MyConceptRecyclerViewAdapter;
+import edu.humber.conspectus.R;
 import edu.humber.conspectus.dummy.DummyContent;
 import edu.humber.conspectus.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.

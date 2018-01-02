@@ -6,16 +6,10 @@ package edu.humber.conspectus.model;
 
 public class Concept {
     Integer id;
+    String name;
     Integer bookmarks_id;
 
-    public Concept(Integer id, Integer bookmarks_id) {
-        this.id = id;
-        this.bookmarks_id = bookmarks_id;
-    }
-
-    public Concept(Integer bookmarks_id) {
-        this.bookmarks_id = bookmarks_id;
-    }
+    public Concept() { }
 
     public Integer getId() {
         return id;
@@ -24,6 +18,10 @@ public class Concept {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 
     public Integer getBookmarks_id() {
         return bookmarks_id;
@@ -37,7 +35,7 @@ public class Concept {
     public String toString() {
         return "Concept{" +
                 "id=" + id +
-                ", bookmarks_id=" + bookmarks_id +
+                ", name=" + name +
                 '}';
     }
 }

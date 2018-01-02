@@ -3,7 +3,6 @@ package edu.humber.conspectus.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +11,8 @@ import android.view.ViewGroup;
 
 import edu.humber.conspectus.adapter.MyConceptRecyclerViewAdapter;
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.dummy.DummyContent;
-import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
+import edu.humber.conspectus.model.Concept;
+import edu.humber.conspectus.model.ConceptsFetcher;
 
 /**
  * A fragment representing a list of Items.
@@ -22,11 +21,6 @@ import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
  * interface.
  */
 public class ConceptFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -36,23 +30,14 @@ public class ConceptFragment extends Fragment {
     public ConceptFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ConceptFragment newInstance(int columnCount) {
+    public static ConceptFragment newInstance() {
         ConceptFragment fragment = new ConceptFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -64,12 +49,8 @@ public class ConceptFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(ConceptsFetcher.getConcepts(), mListener));
         }
         return view;
     }
@@ -103,7 +84,6 @@ public class ConceptFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Concept item);
     }
 }

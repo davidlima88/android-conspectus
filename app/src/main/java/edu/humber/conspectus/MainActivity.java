@@ -1,5 +1,6 @@
 package edu.humber.conspectus;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,13 +16,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import edu.humber.conspectus.fragment.dummy.DummyContent;
 import edu.humber.conspectus.fragment.CategoryFragment;
 import edu.humber.conspectus.fragment.ConceptFragment;
 import edu.humber.conspectus.fragment.EntityFragment;
+import edu.humber.conspectus.fragment.WebBrowserFragment;
+import edu.humber.conspectus.fragment.dummy.DummyContent;
+import edu.humber.conspectus.model.Concept;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ConceptFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ConceptFragment.OnListFragmentInteractionListener,
+        WebBrowserFragment.OnFragmentInteractionListener, EntityFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +43,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        /*WebView webView = (WebView) findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.loadUrl("http://www.google.com/");*/
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -96,15 +92,14 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
         Class fragmentClass;
 
-
-        fragmentClass = ConceptFragment.class;
+        fragmentClass = WebBrowserFragment.class;
 
         if (id == R.id.nav_explorer) {
-            fragmentClass = ConceptFragment.class;
+            fragmentClass = WebBrowserFragment.class;
         } else if (id == R.id.nav_bookmarks) {
             fragmentClass = ConceptFragment.class;
-        } else if (id==R.id.nav_entities){
-            fragmentClass= EntityFragment.class;
+        } else if (id == R.id.nav_entities) {
+            fragmentClass = EntityFragment.class;
         } else if (id == R.id.nav_categories) {
             fragmentClass = CategoryFragment.class;
         } else if (id == R.id.nav_concepts) {
@@ -133,9 +128,14 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onListFragmentInteraction(Concept item) {
+
     }
 
     @Override
@@ -143,4 +143,8 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

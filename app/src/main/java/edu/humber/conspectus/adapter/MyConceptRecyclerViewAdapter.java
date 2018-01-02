@@ -9,20 +9,20 @@ import android.widget.TextView;
 import edu.humber.conspectus.R;
 import edu.humber.conspectus.fragment.ConceptFragment.OnListFragmentInteractionListener;
 import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
+import edu.humber.conspectus.model.Concept;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Concept} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConceptRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Concept> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyConceptRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyConceptRecyclerViewAdapter(List<Concept> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,8 +37,8 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getId().toString());
+        holder.mContentView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +61,13 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Concept mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id);
+            mContentView = view.findViewById(R.id.content);
         }
 
         @Override

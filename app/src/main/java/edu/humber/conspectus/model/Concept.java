@@ -1,15 +1,18 @@
 package edu.humber.conspectus.model;
 
-/**
- * Created by Osheen on 30-12-2017.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Concept {
-    Integer id;
-    String name;
-    Integer bookmarks_id;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Concept() { }
+public class Concept{
+    private Integer id;
+    private String name;
+    private Integer bookmarks_id;
+
+    private Concept() { }
 
     public Integer getId() {
         return id;
@@ -37,5 +40,17 @@ public class Concept {
                 "id=" + id +
                 ", name=" + name +
                 '}';
+    }
+
+    public static List<Concept> parseJSONArray(JSONArray jsonArray) throws JSONException {
+        List<Concept> data = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject json_data = jsonArray.getJSONObject(i);
+            Concept concept = new Concept();
+            concept.setName(json_data.getString("fish_img"));
+            concept.setId(json_data.getInt("price"));
+            data.add(concept);
+        }
+        return data;
     }
 }

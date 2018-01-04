@@ -1,79 +1,73 @@
 package edu.humber.conspectus.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import edu.humber.conspectus.R;
 import edu.humber.conspectus.adapter.MyEntityRecyclerViewAdapter;
-import edu.humber.conspectus.fragment.dummy.DummyContent;
-import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
+import edu.humber.conspectus.json.JSONAsyncTask;
+import edu.humber.conspectus.json.JSONCallBack;
+import edu.humber.conspectus.model.Entity;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class EntityFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public EntityFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static EntityFragment newInstance(int columnCount) {
-        EntityFragment fragment = new EntityFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    public static EntityFragment newInstance() {
+        return new EntityFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_entity_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_entity_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        final ProgressDialog pdLoading = new ProgressDialog(getContext());
+        pdLoading.setMessage("\tLoading...");
+        pdLoading.setCancelable(false);
+        pdLoading.show();
+
+        new JSONAsyncTask(new JSONCallBack() {
+            @Override
+            public void success(JSONArray jsonArray) {
+                pdLoading.dismiss();
+                try {
+                    RecyclerView recyclerView = (RecyclerView) view;
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setAdapter(new MyEntityRecyclerViewAdapter(Entity.parseJSONArray(jsonArray), mListener));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                } catch (JSONException e) {
+                    Toast.makeText(view.getContext(), "Failed to Parse Data into View", Toast.LENGTH_LONG).show();
+                }
             }
-            recyclerView.setAdapter(new MyEntityRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+
+            @Override
+            public void failed() {
+                Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
+            }
+        }, "http://192.168.0.23/test/test.json").execute();
+
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -92,18 +86,7 @@ public class EntityFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Entity item);
     }
 }

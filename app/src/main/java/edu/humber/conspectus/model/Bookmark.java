@@ -1,36 +1,18 @@
 package edu.humber.conspectus.model;
 
-/**
- * Created by Osheen on 30-12-2017.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Bookmark {
-    Integer id;
-    String title;
-    String url;
-    String sentiment;
-    Integer folders_id;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Bookmark(String title, String url, String sentiment, Integer folders_id) {
-        this.title = title;
-        this.url = url;
-        this.sentiment = sentiment;
-        this.folders_id = folders_id;
-    }
+public class Bookmark{
+    private Integer id;
+    private String name;
+    private Integer bookmarks_id;
 
-    public Bookmark(Integer id, String title, String url, String sentiment, Integer folders_id) {
-        this.id = id;
-        this.title = title;
-        this.url = url;
-        this.sentiment = sentiment;
-        this.folders_id = folders_id;
-    }
-
-    public Bookmark(Integer id, String title, String url) {
-        this.id = id;
-        this.title = title;
-        this.url = url;
-    }
+    private Bookmark() { }
 
     public Integer getId() {
         return id;
@@ -40,46 +22,35 @@ public class Bookmark {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public Integer getBookmarks_id() {
+        return bookmarks_id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getSentiment() {
-        return sentiment;
-    }
-
-    public void setSentiment(String sentiment) {
-        this.sentiment = sentiment;
-    }
-
-    public Integer getFolders_id() {
-        return folders_id;
-    }
-
-    public void setFolders_id(Integer folders_id) {
-        this.folders_id = folders_id;
+    public void setBookmarks_id(Integer bookmarks_id) {
+        this.bookmarks_id = bookmarks_id;
     }
 
     @Override
     public String toString() {
         return "Bookmark{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", sentiment='" + sentiment + '\'' +
-                ", folders_id=" + folders_id +
+                ", name=" + name +
                 '}';
+    }
+
+    public static List<Bookmark> parseJSONArray(JSONArray jsonArray) throws JSONException {
+        List<Bookmark> data = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject json_data = jsonArray.getJSONObject(i);
+            Bookmark bookmark = new Bookmark();
+            bookmark.setName(json_data.getString("fish_img"));
+            bookmark.setId(json_data.getInt("price"));
+            data.add(bookmark);
+        }
+        return data;
     }
 }

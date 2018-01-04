@@ -9,15 +9,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.ConceptFragment.OnListFragmentInteractionListener;
-import edu.humber.conspectus.model.Concept;
+import edu.humber.conspectus.fragment.BookmarkFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.model.Bookmark;
 
-public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConceptRecyclerViewAdapter.ViewHolder> {
+public class MyBookmarkRecyclerViewAdapter extends RecyclerView.Adapter<MyBookmarkRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Concept> mValues;
+    private final List<Bookmark> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyConceptRecyclerViewAdapter(List<Concept> items, OnListFragmentInteractionListener listener) {
+    public MyBookmarkRecyclerViewAdapter(List<Bookmark> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -25,7 +25,7 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_concept, parent, false);
+                .inflate(R.layout.fragment_bookmark, parent, false);
         return new ViewHolder(view);
     }
 
@@ -54,7 +54,7 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
         private final View mView;
         private final TextView mIdView;
         private final TextView mContentView;
-        private Concept mItem;
+        private Bookmark mItem;
 
         private ViewHolder(View view) {
             super(view);

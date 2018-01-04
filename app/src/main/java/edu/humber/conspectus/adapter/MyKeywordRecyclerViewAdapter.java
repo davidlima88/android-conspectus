@@ -6,23 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.KeywordFragment.OnListFragmentInteractionListener;
-import edu.humber.conspectus.fragment.dummy.DummyContent.DummyItem;
-
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+import edu.humber.conspectus.R;
+import edu.humber.conspectus.fragment.KeywordFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.model.Keyword;
+
 public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeywordRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Keyword> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyKeywordRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyKeywordRecyclerViewAdapter(List<Keyword> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,15 +32,13 @@ public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeyword
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getId().toString());
+        holder.mContentView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
@@ -57,17 +50,17 @@ public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeyword
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+    protected class ViewHolder extends RecyclerView.ViewHolder {
+        private final View mView;
+        private final TextView mIdView;
+        private final TextView mContentView;
+        private Keyword mItem;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id);
+            mContentView = view.findViewById(R.id.content);
         }
 
         @Override

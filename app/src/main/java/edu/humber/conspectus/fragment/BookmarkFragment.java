@@ -15,19 +15,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.adapter.MyKeywordRecyclerViewAdapter;
+import edu.humber.conspectus.adapter.MyBookmarkRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
-import edu.humber.conspectus.model.Keyword;
+import edu.humber.conspectus.model.Bookmark;
 
-public class KeywordFragment extends Fragment {
+public class BookmarkFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
-    public KeywordFragment() {
+    public BookmarkFragment() {
     }
 
-    public static KeywordFragment newInstance() {
-        return new KeywordFragment();
+    public static BookmarkFragment newInstance() {
+        return new BookmarkFragment();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class KeywordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_keyword_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_bookmark_list, container, false);
 
         final ProgressDialog pdLoading = new ProgressDialog(getContext());
         pdLoading.setMessage("\tLoading...");
@@ -52,7 +52,7 @@ public class KeywordFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyKeywordRecyclerViewAdapter(Keyword.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyBookmarkRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -87,6 +87,6 @@ public class KeywordFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Keyword item);
+        void onListFragmentInteraction(Bookmark item);
     }
 }

@@ -25,21 +25,17 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Categories" />
         <item
-            android:id="@+id/nav_emotions"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Emotions" />
-        <item
             android:id="@+id/nav_keywords"
             android:icon="@drawable/ic_menu_manage"
             android:title="Keywords" />
     </group>
     <group android:id="@+id/nav_grp2" android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_terms"
             android:icon="@drawable/ic_menu_share"
             android:title="Privacy &amp; terms" />
         <item
-            android:id="@+id/nav_send"
+            android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_send"
             android:title="Logout" />
     </group>

@@ -1,5 +1,6 @@
 package edu.humber.conspectus.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,31 +9,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import edu.humber.conspectus.adapter.MyConceptRecyclerViewAdapter;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import edu.humber.conspectus.R;
+import edu.humber.conspectus.adapter.MyConceptRecyclerViewAdapter;
+import edu.humber.conspectus.json.JSONAsyncTask;
+import edu.humber.conspectus.json.JSONCallBack;
 import edu.humber.conspectus.model.Concept;
-import edu.humber.conspectus.model.ConceptsFetcher;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class ConceptFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ConceptFragment() {
     }
 
     public static ConceptFragment newInstance() {
-        ConceptFragment fragment = new ConceptFragment();
-        return fragment;
+        return new ConceptFragment();
     }
 
     @Override
@@ -43,18 +38,36 @@ public class ConceptFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_concept_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_concept_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(ConceptsFetcher.getConcepts(), mListener));
-        }
+        final ProgressDialog pdLoading = new ProgressDialog(getContext());
+        pdLoading.setMessage("\tLoading...");
+        pdLoading.setCancelable(false);
+        pdLoading.show();
+
+        new JSONAsyncTask(new JSONCallBack() {
+            @Override
+            public void success(JSONArray jsonArray) {
+                pdLoading.dismiss();
+                try {
+                    RecyclerView recyclerView = (RecyclerView) view;
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(Concept.parseJSONArray(jsonArray), mListener));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                } catch (JSONException e) {
+                    Toast.makeText(view.getContext(), "Failed to Parse Data into View", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void failed() {
+                Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
+            }
+        }, "http://192.168.0.23/test/test.json").execute();
+
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -73,16 +86,6 @@ public class ConceptFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Concept item);
     }

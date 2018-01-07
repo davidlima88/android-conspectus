@@ -58,7 +58,6 @@ public class EntityFragment extends Fragment {
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
                     Toast.makeText(view.getContext(), "Failed to Parse Data into View", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
                 }
             }
 

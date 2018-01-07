@@ -33,7 +33,7 @@ public class MyBookmarkRecyclerViewAdapter extends RecyclerView.Adapter<MyBookma
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText(mValues.get(position).getName());
+        holder.mContentView.setText(mValues.get(position).getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

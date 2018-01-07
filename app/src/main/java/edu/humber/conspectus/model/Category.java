@@ -9,8 +9,9 @@ import java.util.List;
 
 public class Category{
     private Integer id;
-    private String name;
     private Integer bookmarks_id;
+    private Double score;
+    private String label;
 
     private Category() { }
 
@@ -22,10 +23,6 @@ public class Category{
         this.id = id;
     }
 
-    public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
-
     public Integer getBookmarks_id() {
         return bookmarks_id;
     }
@@ -34,11 +31,29 @@ public class Category{
         this.bookmarks_id = bookmarks_id;
     }
 
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name=" + name +
+                ", bookmarks_id=" + bookmarks_id +
+                ", score=" + score +
+                ", label='" + label + '\'' +
                 '}';
     }
 
@@ -47,8 +62,9 @@ public class Category{
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject json_data = jsonArray.getJSONObject(i);
             Category category = new Category();
-            category.setName(json_data.getString("fish_img"));
-            category.setId(json_data.getInt("price"));
+            category.setLabel(json_data.getString("label"));
+            category.setScore(json_data.getDouble("score"));
+            category.setId(json_data.getInt("id"));
             data.add(category);
         }
         return data;

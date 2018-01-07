@@ -1,5 +1,7 @@
 package edu.humber.conspectus.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,6 +79,7 @@ public class Entity{
             entity.setRelevance(json_data.getDouble("relevance"));
             entity.setId(json_data.getInt("id"));
             data.add(entity);
+            Log.e("sukh",entity.toString());
         }
         return data;
     }

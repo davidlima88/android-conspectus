@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,33 @@ public class WebBrowserFragment extends Fragment {
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.loadUrl("http://www.google.com/");
+        webView.setInitialScale(1);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setUseWideViewPort(true);
+        webView.setOnKeyListener(new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if(event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    WebView webView = (WebView) v;
+
+                    switch(keyCode)
+                    {
+                        case KeyEvent.KEYCODE_BACK:
+                            if(webView.canGoBack())
+                            {
+                                webView.goBack();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+
+                return false;
+            }
+        });
         FloatingActionButton save = view.findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override

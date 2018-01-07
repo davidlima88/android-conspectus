@@ -64,7 +64,7 @@ public class EntityFragment extends Fragment {
             public void failed() {
                 Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
             }
-        }, "http://192.168.0.23/test/test.json").execute();
+        }, "http://192.168.0.31/api/public/entity").execute();
 
         return view;
     }

@@ -1,7 +1,8 @@
 package edu.humber.conspectus.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,20 +15,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gms.plus.PlusOneButton;
 
 import edu.humber.conspectus.R;
 
-/**
- * A fragment with a Google +1 button.
- * Activities that contain this fragment must implement the
- * {@link WebBrowserFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link WebBrowserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WebBrowserFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -36,12 +28,6 @@ public class WebBrowserFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment WebBrowserFragment.
-     */
     public static WebBrowserFragment newInstance() {
         WebBrowserFragment fragment = new WebBrowserFragment();
         return fragment;
@@ -55,13 +41,12 @@ public class WebBrowserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_web_browser, container, false);
 
         final WebView webView = view.findViewById(R.id.webview);
-       final TextView typeUrl = view.findViewById(R.id.url);
-       final Button search = view.findViewById(R.id.search);
-       // webView.setWebViewClient(new WebViewClient());
+        final TextView typeUrl = view.findViewById(R.id.urlField);
+        final Button search = view.findViewById(R.id.searchBtn);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
@@ -71,28 +56,21 @@ public class WebBrowserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = typeUrl.getText().toString();
-
                 webView.getSettings().setLoadsImagesAutomatically(true);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                 webView.loadUrl(url);
-
             }
         });
-        webView.setOnKeyListener(new View.OnKeyListener()
-        {
+        webView.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
-                if(event.getAction() == KeyEvent.ACTION_DOWN)
-                {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     WebView webView = (WebView) v;
 
-                    switch(keyCode)
-                    {
+                    switch (keyCode) {
                         case KeyEvent.KEYCODE_BACK:
-                            if(webView.canGoBack())
-                            {
+                            if (webView.canGoBack()) {
                                 webView.goBack();
                                 return true;
                             }
@@ -103,12 +81,34 @@ public class WebBrowserFragment extends Fragment {
                 return false;
             }
         });
+
         FloatingActionButton save = view.findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
+                View mView = layoutInflater.inflate(R.layout.dialog_new_bookmark, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+                alertDialogBuilder.setView(mView);
+
+                final EditText userInputDialogEditText = mView.findViewById(R.id.userInputDialog);
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Analyze", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                // ToDo get user input here
+                            }
+                        })
+
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogBox, int id) {
+                                        dialogBox.cancel();
+                                    }
+                                });
+
+                AlertDialog alertDialogAndroid = alertDialogBuilder.create();
+                alertDialogAndroid.show();
             }
         });
         return view;
@@ -157,6 +157,7 @@ public class WebBrowserFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

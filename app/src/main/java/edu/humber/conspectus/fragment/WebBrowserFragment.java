@@ -17,8 +17,13 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
 
 import edu.humber.conspectus.R;
+import edu.humber.conspectus.json.JSONCallBack;
+import edu.humber.conspectus.json.JSONPost;
 
 public class WebBrowserFragment extends Fragment {
 
@@ -87,18 +92,38 @@ public class WebBrowserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
-                View mView = layoutInflater.inflate(R.layout.dialog_new_bookmark, null);
+                final View mView = layoutInflater.inflate(R.layout.dialog_new_bookmark, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
                 alertDialogBuilder.setView(mView);
 
                 final EditText userInputDialogEditText = mView.findViewById(R.id.userInputDialog);
+                final String title=userInputDialogEditText.getText().toString();
+                final String webURL=webView.getUrl();
+                        final String jsonString="{'title':"+title+"'url':"+webURL+"}";
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("Analyze", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
-                                // ToDo get user input here
+
+                                new JSONPost(new JSONCallBack() {
+                                    @Override
+                                    public void success(JSONArray jsonArray) {
+
+                                        try {
+                                            Toast.makeText(mView.getContext(), "Save Successful", Toast.LENGTH_LONG).show();
+                                        } catch (Exception e) {
+                                            Toast.makeText(mView.getContext(), "Failed to Parse Data into View", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void failed() {
+                                        Toast.makeText(mView.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
+                                    }
+                                }, "https://conspectus.azurewebsites.net/bookmark","{\"title\":"+title+"\"url\":"+webURL+"}").execute();
                             }
                         })
+
 
                         .setNegativeButton("Cancel",
                                 new DialogInterface.OnClickListener() {

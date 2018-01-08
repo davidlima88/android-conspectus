@@ -1,9 +1,11 @@
 package edu.humber.conspectus.json;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,7 +46,6 @@ public class JSONAsyncTask extends AsyncTask<String, String, String> {
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(10000);
             conn.setRequestMethod("GET");
-            conn.setDoOutput(true);
         } catch (IOException e1) {
             e1.printStackTrace();
             return e1.toString();
@@ -61,7 +62,14 @@ public class JSONAsyncTask extends AsyncTask<String, String, String> {
                 }
                 return (result.toString());
             } else {
-                return ("unsuccessful");
+                InputStream input = conn.getErrorStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                return (result.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,10 +82,12 @@ public class JSONAsyncTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
+            Log.e("LUMEN", result);
             JSONArray jsonArray = new JSONArray(result);
             jsonCallBack.success(jsonArray);
         } catch (JSONException e) {
             jsonCallBack.failed();
+            e.printStackTrace();
         }
     }
 }

@@ -64,7 +64,7 @@ public class CategoryFragment extends Fragment {
             public void failed() {
                 Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
             }
-        }, "http://192.168.0.31/api/public/category").execute();
+        }, "https://conspectus.azurewebsites.net/category").execute();
 
         return view;
     }

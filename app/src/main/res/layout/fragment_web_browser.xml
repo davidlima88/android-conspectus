@@ -16,7 +16,6 @@
             android:background="@drawable/textlines"
             android:hint="Type URL here"
             android:inputType="textUri"
-            android:text="http://"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/webview"
             app:layout_constraintEnd_toStartOf="@+id/searchBtn"

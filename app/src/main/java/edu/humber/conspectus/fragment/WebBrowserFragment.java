@@ -1,6 +1,7 @@
 package edu.humber.conspectus.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.plus.PlusOneButton;
 
@@ -55,15 +58,27 @@ public class WebBrowserFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_web_browser, container, false);
 
-        WebView webView = view.findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient());
+        final WebView webView = view.findViewById(R.id.webview);
+       final TextView typeUrl = view.findViewById(R.id.url);
+       final Button search = view.findViewById(R.id.search);
+       // webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.loadUrl("http://www.google.com/");
-        webView.setInitialScale(1);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setUseWideViewPort(true);
+        webView.setWebViewClient(new MyBrowser());
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = typeUrl.getText().toString();
+
+                webView.getSettings().setLoadsImagesAutomatically(true);
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                webView.loadUrl(url);
+
+            }
+        });
         webView.setOnKeyListener(new View.OnKeyListener()
         {
             @Override
@@ -142,5 +157,11 @@ public class WebBrowserFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
+    private class MyBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
 }

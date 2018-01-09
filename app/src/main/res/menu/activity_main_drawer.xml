@@ -6,37 +6,28 @@
     <group android:id="@+id/nav_grp1" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_explorer"
-            android:icon="@drawable/ic_menu_browser"
+            android:icon="@drawable/ic_public_black_24dp"
             android:title="Web Explorer" />
         <item
             android:id="@+id/nav_bookmarks"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_bookmark_black_24dp"
             android:title="Bookmarks" />
         <item
             android:id="@+id/nav_concepts"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_group_work_black_24dp"
             android:title="Concepts" />
         <item
             android:id="@+id/nav_entities"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_account_box_black_24dp"
             android:title="Entities" />
         <item
             android:id="@+id/nav_categories"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_sort_black_24dp"
             android:title="Categories" />
         <item
             android:id="@+id/nav_keywords"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_format_quote_black_24dp"
             android:title="Keywords" />
     </group>
-    <group android:id="@+id/nav_grp2" android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_terms"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Privacy &amp; terms" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Logout" />
-    </group>
+
 </menu>

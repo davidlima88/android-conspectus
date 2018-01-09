@@ -121,7 +121,7 @@ public class WebBrowserFragment extends Fragment {
 
                                     @Override
                                     public void failed() {
-                                        Toast.makeText(mView.getContext(), "Saved sucessfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mView.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
                                     }
                                 }, "https://conspectus.azurewebsites.net/bookmark","{\"url\":\""+webURL+"\",\"title\":\""+title+"\"}").execute();
                             }

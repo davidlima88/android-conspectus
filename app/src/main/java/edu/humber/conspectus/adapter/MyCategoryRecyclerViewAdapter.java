@@ -11,7 +11,7 @@ import java.util.List;
 import edu.humber.conspectus.R;
 import edu.humber.conspectus.fragment.CategoryFragment.OnListFragmentInteractionListener;
 import edu.humber.conspectus.model.Category;
-
+import edu.humber.conspectus.model.Bookmark;
 public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Category> mValues;
@@ -33,7 +33,7 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText(mValues.get(position).getLabel());
+        holder.mContentView.setText("Bookmark Id:"+mValues.get(position).getBookmarks_id()+"\n Score:"+mValues.get(position).getScore()+"\n Label:"+mValues.get(position).getLabel());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

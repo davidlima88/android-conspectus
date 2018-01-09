@@ -33,7 +33,7 @@ public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText(mValues.get(position).getText());
+        holder.mContentView.setText("Bookmarks Id:"+mValues.get(position).getBookmarks_id()+"\n Entity Text:"+mValues.get(position).getBookmarks_id()+"\n Type:"+mValues.get(position).getType()+"\n Relevance:"+mValues.get(position).getRelevance());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

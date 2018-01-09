@@ -76,6 +76,7 @@ public class Concept{
             concept.setRelevance(json_data.getDouble("relevance"));
             concept.setId(json_data.getInt("id"));
             concept.setDbpedia_resource(json_data.getString("dbpedia_resource"));
+            concept.setBookmarks_id(json_data.getInt("bookmark_id"));
             data.add(concept);
         }
         return data;

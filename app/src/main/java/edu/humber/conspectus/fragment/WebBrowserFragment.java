@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,15 +97,17 @@ public class WebBrowserFragment extends Fragment {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
                 alertDialogBuilder.setView(mView);
 
-                final EditText userInputDialogEditText = mView.findViewById(R.id.userInputDialog);
-                final String title=userInputDialogEditText.getText().toString();
+
+
                 final String webURL=webView.getUrl();
-                        final String jsonString="{'title':"+title+"'url':"+webURL+"}";
+
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("Analyze", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
-
+                                final EditText userInputDialogEditText = mView.findViewById(R.id.userInputDialog);
+                                final String title=userInputDialogEditText.getText().toString();
+                                final String jsonString="{'title':"+title+"'url':"+webURL+"}";
                                 new JSONPost(new JSONCallBack() {
                                     @Override
                                     public void success(JSONArray jsonArray) {
@@ -118,9 +121,9 @@ public class WebBrowserFragment extends Fragment {
 
                                     @Override
                                     public void failed() {
-                                        Toast.makeText(mView.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mView.getContext(), "Saved sucessfully", Toast.LENGTH_LONG).show();
                                     }
-                                }, "https://conspectus.azurewebsites.net/bookmark","{\"title\":"+title+"\"url\":"+webURL+"}").execute();
+                                }, "https://conspectus.azurewebsites.net/bookmark","{\"url\":\""+webURL+"\",\"title\":\""+title+"\"}").execute();
                             }
                         })
 

@@ -50,7 +50,7 @@ public class JSONPost extends AsyncTask<String, String, String> {
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(10000);
             conn.setRequestMethod("POST");
-            conn.setDoOutput( true );
+            conn.setDoOutput(true);
             conn.setInstanceFollowRedirects( false );
             conn.setRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
@@ -62,8 +62,6 @@ public class JSONPost extends AsyncTask<String, String, String> {
         }
         try( DataOutputStream wr = new DataOutputStream( conn.getOutputStream())) {
             wr.write( json.getBytes() );
-            wr.flush();
-            wr.close();
         }
         catch (IOException e){
             e.printStackTrace();

@@ -33,7 +33,7 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText(mValues.get(position).getText());
+        holder.mContentView.setText("Bookmarks Id:"+mValues.get(position).getBookmarks_id()+"\n Concept Text:"+mValues.get(position).getText()+"\n Relevance:"+mValues.get(position).getRelevance()+"\n Dbpedia_Resource:"+mValues.get(position).getDbpedia_resource());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

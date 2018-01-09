@@ -20,11 +20,13 @@ import edu.humber.conspectus.fragment.ConceptFragment;
 public class JSONAsyncTask extends AsyncTask<String, String, String> {
     private JSONCallBack jsonCallBack;
     private String urlString;
-
+private String reqMethod;
+private String json;
     public JSONAsyncTask(JSONCallBack jsonCallBack, String url) {
         this.jsonCallBack = jsonCallBack;
         this.urlString = url;
     }
+
 
     @Override
     protected void onPreExecute() {

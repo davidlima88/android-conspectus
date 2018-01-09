@@ -78,6 +78,7 @@ public class Entity{
             entity.setType(json_data.getString("type"));
             entity.setRelevance(json_data.getDouble("relevance"));
             entity.setId(json_data.getInt("id"));
+            entity.setBookmarks_id(json_data.getInt("bookmark_id"));
             data.add(entity);
             Log.e("sukh",entity.toString());
         }

@@ -65,6 +65,7 @@ public class Category{
             category.setLabel(json_data.getString("label"));
             category.setScore(json_data.getDouble("score"));
             category.setId(json_data.getInt("id"));
+            category.setBookmarks_id(json_data.getInt("bookmark_id"));
             data.add(category);
         }
         return data;

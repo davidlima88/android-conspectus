@@ -65,6 +65,7 @@ public class Keyword{
             keyword.setId(json_data.getInt("id"));
             keyword.setRelevance(json_data.getDouble("relevance"));
             keyword.setText(json_data.getString("text"));
+            keyword.setBookmarks_id(json_data.getInt("bookmark_id"));
             data.add(keyword);
         }
         return data;

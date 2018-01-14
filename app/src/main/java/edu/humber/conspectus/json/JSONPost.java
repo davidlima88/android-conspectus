@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -15,19 +16,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by Osheen on 08-01-2018.
- */
-
 public class JSONPost extends AsyncTask<String, String, String> {
     private JSONCallBack jsonCallBack;
     private String urlString;
     private String json;
 
-    public JSONPost(JSONCallBack jsonCallBack, String url,String json) {
+    public JSONPost(JSONCallBack jsonCallBack, String url, String json) {
         this.jsonCallBack = jsonCallBack;
         this.urlString = url;
-        this.json=json;
+        this.json = json;
     }
 
     @Override
@@ -51,19 +48,20 @@ public class JSONPost extends AsyncTask<String, String, String> {
             conn.setConnectTimeout(10000);
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
-            conn.setInstanceFollowRedirects( false );
-            conn.setRequestProperty( "Content-Type", "application/json");
-            conn.setRequestProperty( "charset", "utf-8");
-            conn.setRequestProperty( "Content-Length", Integer.toString( json.length() ));
-            conn.setUseCaches( false );
+            conn.setInstanceFollowRedirects(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(json.length()));
+            conn.setUseCaches(false);
         } catch (IOException e) {
             e.printStackTrace();
             return e.toString();
         }
-        try( DataOutputStream wr = new DataOutputStream( conn.getOutputStream())) {
-            wr.write( json.getBytes() );
-        }
-        catch (IOException e){
+        try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+            wr.write(json.getBytes());
+            wr.flush();
+            wr.close();
+        } catch (IOException e) {
             e.printStackTrace();
             return e.toString();
         }
@@ -99,9 +97,9 @@ public class JSONPost extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-            Log.e("LUMEN", result);
-            JSONArray jsonArray = new JSONArray(result);
-            jsonCallBack.success(jsonArray);
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray jsonArray = new JSONArray();
+            jsonCallBack.success(jsonArray.put(jsonObject));
         } catch (JSONException e) {
             jsonCallBack.failed();
             e.printStackTrace();

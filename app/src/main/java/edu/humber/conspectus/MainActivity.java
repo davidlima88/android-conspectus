@@ -11,27 +11,30 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import edu.humber.conspectus.fragment.BookmarkFragment;
+import edu.humber.conspectus.fragment.CategoryDetailFragment;
 import edu.humber.conspectus.fragment.CategoryFragment;
 import edu.humber.conspectus.fragment.ConceptFragment;
+import edu.humber.conspectus.fragment.EntityDetailFragment;
 import edu.humber.conspectus.fragment.EntityFragment;
 import edu.humber.conspectus.fragment.KeywordFragment;
 import edu.humber.conspectus.fragment.WebBrowserFragment;
 import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Category;
 import edu.humber.conspectus.model.Concept;
-import edu.humber.conspectus.model.Entity;
 import edu.humber.conspectus.model.Keyword;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         WebBrowserFragment.OnFragmentInteractionListener,  BookmarkFragment.OnListFragmentInteractionListener,
-        CategoryFragment.OnListFragmentInteractionListener,
+        CategoryFragment.OnClickCategoryListener,
         ConceptFragment.OnListFragmentInteractionListener,
-        EntityFragment.OnListFragmentInteractionListener,
+        EntityFragment.OnClickEntityListener,
         KeywordFragment.OnListFragmentInteractionListener{
 
     @Override
@@ -126,15 +129,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onListFragmentInteraction(Bookmark item) {
 
-    }
 
-    @Override
-    public void onListFragmentInteraction(Category item) {
 
-    }
 
     @Override
     public void onListFragmentInteraction(Concept item) {
@@ -142,8 +139,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(Entity item) {
-
+    public void onClickEntityListener(Bookmark item) {
+        try {
+            EntityDetailFragment fragment = EntityDetailFragment.newInstance(item.getId());
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            setTitle("Conspectus - " + item.getTitle());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("toast",item.getId().toString());
     }
 
     @Override
@@ -154,5 +159,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onListFragmentInteraction(Bookmark item) {
+
+    }
+
+    @Override
+    public void onClickCategoryListener(Bookmark item) {
+        try {
+            CategoryDetailFragment fragment = CategoryDetailFragment.newInstance(item.getId());
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            setTitle("Conspectus - " + item.getTitle());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

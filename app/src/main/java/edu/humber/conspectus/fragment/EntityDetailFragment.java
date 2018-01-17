@@ -1,5 +1,6 @@
 package edu.humber.conspectus.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,19 +16,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import edu.humber.conspectus.R;
+import edu.humber.conspectus.adapter.MyEntityDetailRecyclerViewAdapter;
 import edu.humber.conspectus.adapter.MyEntityRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
 import edu.humber.conspectus.model.Bookmark;
+import edu.humber.conspectus.model.Entity;
 
-public class EntityFragment extends Fragment {
-    private OnClickEntityListener mListener;
+@SuppressLint("ValidFragment")
+public class EntityDetailFragment extends Fragment {
+    private int bookmarkId;
 
-    public EntityFragment() {
+    public EntityDetailFragment(int bookmarkId) {
+        this.bookmarkId = bookmarkId;
     }
 
-    public static EntityFragment newInstance() {
-        return new EntityFragment();
+    public static EntityDetailFragment newInstance(int bookmarkId) {
+        return new EntityDetailFragment(bookmarkId);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class EntityFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyEntityRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyEntityDetailRecyclerViewAdapter(Entity.parseJSONArray(jsonArray), null));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -64,7 +69,7 @@ public class EntityFragment extends Fragment {
             public void failed() {
                 Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
             }
-        }, "https://conspectus.azurewebsites.net/entity").execute();
+        }, "https://conspectus.azurewebsites.net/entity/"+bookmarkId).execute();
 
         return view;
     }
@@ -72,21 +77,10 @@ public class EntityFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnClickEntityListener) {
-            mListener = (OnClickEntityListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnClickCategoryListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnClickEntityListener {
-        void onClickEntityListener(Bookmark item);
     }
 }

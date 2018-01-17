@@ -9,16 +9,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.EntityFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.fragment.EntityFragment;
+import edu.humber.conspectus.fragment.EntityFragment.OnClickEntityListener;
 import edu.humber.conspectus.model.Bookmark;
-import edu.humber.conspectus.model.Entity;
 
 public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRecyclerViewAdapter.ViewHolder> {
 
     private final List<Bookmark> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OnClickEntityListener mListener;
 
-    public MyEntityRecyclerViewAdapter(List<Bookmark> items, OnListFragmentInteractionListener listener) {
+    public MyEntityRecyclerViewAdapter(List<Bookmark> items, EntityFragment.OnClickEntityListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -33,14 +33,14 @@ public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getTitle());
+        holder.mIdView.setText("Title:"+mValues.get(position).getTitle()+"\n");
         holder.mContentView.setText("Entities found:"+mValues.get(position).getEntities().length());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onClickEntityListener(holder.mItem);
                 }
             }
         });

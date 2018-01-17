@@ -1,5 +1,6 @@
 package edu.humber.conspectus.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,19 +16,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.adapter.MyEntityRecyclerViewAdapter;
+import edu.humber.conspectus.adapter.MyCategoryDetailRecyclerViewAdapter;
+import edu.humber.conspectus.adapter.MyCategoryRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
 import edu.humber.conspectus.model.Bookmark;
+import edu.humber.conspectus.model.Category;
 
-public class EntityFragment extends Fragment {
-    private OnClickEntityListener mListener;
+@SuppressLint("ValidFragment")
+public class CategoryDetailFragment extends Fragment {
+    private int bookmarkId;
 
-    public EntityFragment() {
+    @SuppressLint("ValidFragment")
+    public CategoryDetailFragment(int bookmarkId) {
+        this.bookmarkId = bookmarkId;
     }
 
-    public static EntityFragment newInstance() {
-        return new EntityFragment();
+    public static CategoryDetailFragment newInstance(int bookmarkId) {
+        return new CategoryDetailFragment(bookmarkId);
     }
 
     @Override
@@ -38,7 +44,7 @@ public class EntityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_entity_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_category_list, container, false);
 
         final ProgressDialog pdLoading = new ProgressDialog(getContext());
         pdLoading.setMessage("\tLoading...");
@@ -52,7 +58,7 @@ public class EntityFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyEntityRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyCategoryDetailRecyclerViewAdapter(Category.parseJSONArray(jsonArray), null));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -64,7 +70,7 @@ public class EntityFragment extends Fragment {
             public void failed() {
                 Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
             }
-        }, "https://conspectus.azurewebsites.net/entity").execute();
+        }, "https://conspectus.azurewebsites.net/category/"+bookmarkId).execute();
 
         return view;
     }
@@ -72,21 +78,12 @@ public class EntityFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnClickEntityListener) {
-            mListener = (OnClickEntityListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnClickCategoryListener");
-        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    public interface OnClickEntityListener {
-        void onClickEntityListener(Bookmark item);
-    }
 }

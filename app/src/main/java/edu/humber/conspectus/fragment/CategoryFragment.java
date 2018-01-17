@@ -18,10 +18,11 @@ import edu.humber.conspectus.R;
 import edu.humber.conspectus.adapter.MyCategoryRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Category;
 
 public class CategoryFragment extends Fragment {
-    private OnListFragmentInteractionListener mListener;
+    private OnClickCategoryListener mListener;
 
     public CategoryFragment() {
     }
@@ -52,7 +53,7 @@ public class CategoryFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyCategoryRecyclerViewAdapter(Category.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyCategoryRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -72,11 +73,11 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnClickCategoryListener) {
+            mListener = (OnClickCategoryListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement OnClickEntityListener");
         }
     }
 
@@ -86,7 +87,7 @@ public class CategoryFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Category item);
+    public interface OnClickCategoryListener {
+        void onClickCategoryListener(Bookmark item);
     }
 }

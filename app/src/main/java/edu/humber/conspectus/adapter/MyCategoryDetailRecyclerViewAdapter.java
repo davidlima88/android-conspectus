@@ -13,12 +13,12 @@ import edu.humber.conspectus.fragment.CategoryFragment;
 import edu.humber.conspectus.fragment.CategoryFragment.OnClickCategoryListener;
 import edu.humber.conspectus.model.Category;
 import edu.humber.conspectus.model.Bookmark;
-public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoryRecyclerViewAdapter.ViewHolder> {
+public class MyCategoryDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoryDetailRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Bookmark> mValues;
+    private final List<Category> mValues;
     private final CategoryFragment.OnClickCategoryListener mListener;
 
-    public MyCategoryRecyclerViewAdapter(List<Bookmark> items, CategoryFragment.OnClickCategoryListener listener) {
+    public MyCategoryDetailRecyclerViewAdapter(List<Category> items, CategoryFragment.OnClickCategoryListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -33,17 +33,9 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Title:"+mValues.get(position).getTitle().toString());
-        holder.mContentView.setText("Categories found:"+mValues.get(position).getCategories().length());
+        holder.mIdView.setText("Score:"+mValues.get(position).getScore().toString());
+        holder.mContentView.setText("Label found:"+mValues.get(position).getLabel().length());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onClickCategoryListener(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -55,7 +47,7 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
         private final View mView;
         private final TextView mIdView;
         private final TextView mContentView;
-        private Bookmark mItem;
+        private Category mItem;
 
         private ViewHolder(View view) {
             super(view);

@@ -10,14 +10,15 @@ import java.util.List;
 
 import edu.humber.conspectus.R;
 import edu.humber.conspectus.fragment.EntityFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Entity;
 
 public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Entity> mValues;
+    private final List<Bookmark> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyEntityRecyclerViewAdapter(List<Entity> items, OnListFragmentInteractionListener listener) {
+    public MyEntityRecyclerViewAdapter(List<Bookmark> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -32,8 +33,8 @@ public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText("Bookmarks Id:"+mValues.get(position).getBookmarks_id()+"\n Entity Text:"+mValues.get(position).getBookmarks_id()+"\n Type:"+mValues.get(position).getType()+"\n Relevance:"+mValues.get(position).getRelevance());
+        holder.mIdView.setText(mValues.get(position).getTitle());
+        holder.mContentView.setText("Entities found:"+mValues.get(position).getEntities().length());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +55,7 @@ public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRe
         private final View mView;
         private final TextView mIdView;
         private final TextView mContentView;
-        private Entity mItem;
+        private Bookmark mItem;
 
         private ViewHolder(View view) {
             super(view);

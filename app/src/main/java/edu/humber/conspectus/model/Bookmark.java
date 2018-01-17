@@ -17,6 +17,11 @@ public class Bookmark{
     private Double anger;
     private Double disgust;
     private Double sadness;
+    private JSONArray concepts;
+    private JSONArray categories;
+    private JSONArray entities;
+    private JSONArray keywords;
+
 
     private Bookmark() { }
 
@@ -92,6 +97,38 @@ public class Bookmark{
         this.sadness = sadness;
     }
 
+    public JSONArray getConcepts() {
+        return concepts;
+    }
+
+    public void setConcepts(JSONArray concepts) {
+        this.concepts = concepts;
+    }
+
+    public JSONArray getCategories() {
+        return categories;
+    }
+
+    public void setCategories(JSONArray categories) {
+        this.categories = categories;
+    }
+
+    public JSONArray getEntities() {
+        return entities;
+    }
+
+    public void setEntities(JSONArray entities) {
+        this.entities = entities;
+    }
+
+    public JSONArray getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(JSONArray keywords) {
+        this.keywords = keywords;
+    }
+
     @Override
     public String toString() {
         return "Bookmark{" +
@@ -121,6 +158,26 @@ public class Bookmark{
             bookmark.setFear(json_data.getDouble("fear"));
             bookmark.setJoy(json_data.getDouble("joy"));
             bookmark.setSadness(json_data.getDouble("sadness"));
+            try {
+                bookmark.setCategories(json_data.getJSONArray("categories"));
+            } catch (JSONException e){
+
+            }
+            try {
+                bookmark.setConcepts(json_data.getJSONArray("concepts"));
+            } catch (JSONException e){
+
+            }
+            try {
+                bookmark.setKeywords(json_data.getJSONArray("keywords"));
+            } catch (JSONException e){
+
+            }
+            try {
+                bookmark.setEntities(json_data.getJSONArray("entities"));
+            } catch (JSONException e){
+
+            }
             data.add(bookmark);
         }
         return data;

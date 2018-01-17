@@ -19,6 +19,7 @@ import edu.humber.conspectus.R;
 import edu.humber.conspectus.adapter.MyEntityRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Entity;
 
 public class EntityFragment extends Fragment {
@@ -53,7 +54,7 @@ public class EntityFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyEntityRecyclerViewAdapter(Entity.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyEntityRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -88,6 +89,6 @@ public class EntityFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Entity item);
+        void onListFragmentInteraction(Bookmark item);
     }
 }

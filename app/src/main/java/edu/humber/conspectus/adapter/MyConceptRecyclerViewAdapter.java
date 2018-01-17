@@ -9,15 +9,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.ConceptFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.fragment.ConceptFragment;
+import edu.humber.conspectus.fragment.ConceptFragment.OnClickConceptListener;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Concept;
 
 public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConceptRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Concept> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Bookmark> mValues;
+    private final ConceptFragment.OnClickConceptListener mListener;
 
-    public MyConceptRecyclerViewAdapter(List<Concept> items, OnListFragmentInteractionListener listener) {
+    public MyConceptRecyclerViewAdapter(List<Bookmark> items, ConceptFragment.OnClickConceptListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -32,14 +34,13 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText("Bookmarks Id:"+mValues.get(position).getBookmarks_id()+"\n Concept Text:"+mValues.get(position).getText()+"\n Relevance:"+mValues.get(position).getRelevance()+"\n Dbpedia_Resource:"+mValues.get(position).getDbpedia_resource());
-
+        holder.mIdView.setText("Title:"+mValues.get(position).getTitle().toString());
+        holder.mContentView.setText("Concepts found:"+mValues.get(position).getConcepts().length());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onClickConceptListener(holder.mItem);
                 }
             }
         });
@@ -54,7 +55,7 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
         private final View mView;
         private final TextView mIdView;
         private final TextView mContentView;
-        private Concept mItem;
+        private Bookmark mItem;
 
         private ViewHolder(View view) {
             super(view);

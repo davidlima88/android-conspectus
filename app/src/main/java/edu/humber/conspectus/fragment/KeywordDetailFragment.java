@@ -1,5 +1,6 @@
 package edu.humber.conspectus.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,20 +16,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.adapter.MyCategoryRecyclerViewAdapter;
+import edu.humber.conspectus.adapter.MyKeywordDetailRecyclerViewAdapter;
+import edu.humber.conspectus.adapter.MyKeywordRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
 import edu.humber.conspectus.model.Bookmark;
-import edu.humber.conspectus.model.Category;
+import edu.humber.conspectus.model.Keyword;
 
-public class CategoryFragment extends Fragment {
-    private OnClickCategoryListener mListener;
+@SuppressLint("ValidFragment")
+public class KeywordDetailFragment extends Fragment {
+    private int bookmarkId;
 
-    public CategoryFragment() {
+    @SuppressLint("ValidFragment")
+    public KeywordDetailFragment(int bookmarkId) {
+        this.bookmarkId=bookmarkId;
     }
 
-    public static CategoryFragment newInstance() {
-        return new CategoryFragment();
+    public static KeywordDetailFragment newInstance(int bookmarkId) {
+        return new KeywordDetailFragment(bookmarkId);
     }
 
     @Override
@@ -39,7 +44,7 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_category_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_keyword_list, container, false);
 
         final ProgressDialog pdLoading = new ProgressDialog(getContext());
         pdLoading.setMessage("\tLoading...");
@@ -53,7 +58,7 @@ public class CategoryFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyCategoryRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyKeywordDetailRecyclerViewAdapter(Keyword.parseJSONArray(jsonArray), null));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -65,7 +70,7 @@ public class CategoryFragment extends Fragment {
             public void failed() {
                 Toast.makeText(view.getContext(), "Failed to Retrieve Data from Server", Toast.LENGTH_LONG).show();
             }
-        }, "https://conspectus.azurewebsites.net/category").execute();
+        }, "https://conspectus.azurewebsites.net/keyword/"+bookmarkId).execute();
 
         return view;
     }
@@ -73,21 +78,10 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnClickCategoryListener) {
-            mListener = (OnClickCategoryListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnClickKeywordListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnClickCategoryListener {
-        void onClickCategoryListener(Bookmark item);
     }
 }

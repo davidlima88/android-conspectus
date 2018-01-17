@@ -19,9 +19,11 @@ import android.widget.Toast;
 import edu.humber.conspectus.fragment.BookmarkFragment;
 import edu.humber.conspectus.fragment.CategoryDetailFragment;
 import edu.humber.conspectus.fragment.CategoryFragment;
+import edu.humber.conspectus.fragment.ConceptDetailFragment;
 import edu.humber.conspectus.fragment.ConceptFragment;
 import edu.humber.conspectus.fragment.EntityDetailFragment;
 import edu.humber.conspectus.fragment.EntityFragment;
+import edu.humber.conspectus.fragment.KeywordDetailFragment;
 import edu.humber.conspectus.fragment.KeywordFragment;
 import edu.humber.conspectus.fragment.WebBrowserFragment;
 import edu.humber.conspectus.model.Bookmark;
@@ -33,9 +35,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         WebBrowserFragment.OnFragmentInteractionListener,  BookmarkFragment.OnListFragmentInteractionListener,
         CategoryFragment.OnClickCategoryListener,
-        ConceptFragment.OnListFragmentInteractionListener,
+        ConceptFragment.OnClickConceptListener,
         EntityFragment.OnClickEntityListener,
-        KeywordFragment.OnListFragmentInteractionListener{
+        KeywordFragment.OnClickKeywordListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,14 +132,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
-
-    @Override
-    public void onListFragmentInteraction(Concept item) {
-
-    }
-
     @Override
     public void onClickEntityListener(Bookmark item) {
         try {
@@ -151,10 +145,6 @@ public class MainActivity extends AppCompatActivity
         Log.e("toast",item.getId().toString());
     }
 
-    @Override
-    public void onListFragmentInteraction(Keyword item) {
-
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -170,6 +160,30 @@ public class MainActivity extends AppCompatActivity
     public void onClickCategoryListener(Bookmark item) {
         try {
             CategoryDetailFragment fragment = CategoryDetailFragment.newInstance(item.getId());
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            setTitle("Conspectus - " + item.getTitle());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClickKeywordListener(Bookmark item) {
+        try {
+            KeywordDetailFragment fragment = KeywordDetailFragment.newInstance(item.getId());
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            setTitle("Conspectus - " + item.getTitle());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClickConceptListener(Bookmark item) {
+        try {
+            ConceptDetailFragment fragment = ConceptDetailFragment.newInstance(item.getId());
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             setTitle("Conspectus - " + item.getTitle());

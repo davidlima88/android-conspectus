@@ -9,15 +9,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.KeywordFragment.OnListFragmentInteractionListener;
+import edu.humber.conspectus.fragment.KeywordFragment;
+import edu.humber.conspectus.fragment.KeywordFragment.OnClickKeywordListener;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Keyword;
 
 public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeywordRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Keyword> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Bookmark> mValues;
+    private final KeywordFragment.OnClickKeywordListener mListener;
 
-    public MyKeywordRecyclerViewAdapter(List<Keyword> items, OnListFragmentInteractionListener listener) {
+    public MyKeywordRecyclerViewAdapter(List<Bookmark> items, KeywordFragment.OnClickKeywordListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -32,14 +34,14 @@ public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeyword
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText("Bookmark Id:"+mValues.get(position).getBookmarks_id()+"\n Keyword Text:"+mValues.get(position).getText()+"\n Relevance:"+mValues.get(position).getRelevance());
+        holder.mIdView.setText("Title:"+mValues.get(position).getTitle().toString());
+        holder.mContentView.setText("Keywords found:"+mValues.get(position).getKeywords().length());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onClickKeywordListener(holder.mItem);
                 }
             }
         });
@@ -54,7 +56,7 @@ public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeyword
         private final View mView;
         private final TextView mIdView;
         private final TextView mContentView;
-        private Keyword mItem;
+        private Bookmark mItem;
 
         private ViewHolder(View view) {
             super(view);

@@ -18,10 +18,11 @@ import edu.humber.conspectus.R;
 import edu.humber.conspectus.adapter.MyKeywordRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Keyword;
 
 public class KeywordFragment extends Fragment {
-    private OnListFragmentInteractionListener mListener;
+    private OnClickKeywordListener mListener;
 
     public KeywordFragment() {
     }
@@ -52,7 +53,7 @@ public class KeywordFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyKeywordRecyclerViewAdapter(Keyword.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyKeywordRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -72,8 +73,8 @@ public class KeywordFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnClickKeywordListener) {
+            mListener = (OnClickKeywordListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnClickEntityListener");
@@ -86,7 +87,7 @@ public class KeywordFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Keyword item);
+    public interface OnClickKeywordListener {
+        void onClickKeywordListener(Bookmark item);
     }
 }

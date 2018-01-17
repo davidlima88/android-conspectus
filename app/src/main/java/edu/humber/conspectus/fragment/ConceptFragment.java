@@ -18,10 +18,11 @@ import edu.humber.conspectus.R;
 import edu.humber.conspectus.adapter.MyConceptRecyclerViewAdapter;
 import edu.humber.conspectus.json.JSONAsyncTask;
 import edu.humber.conspectus.json.JSONCallBack;
+import edu.humber.conspectus.model.Bookmark;
 import edu.humber.conspectus.model.Concept;
 
 public class ConceptFragment extends Fragment {
-    private OnListFragmentInteractionListener mListener;
+    private OnClickConceptListener mListener;
 
     public ConceptFragment() {
     }
@@ -52,7 +53,7 @@ public class ConceptFragment extends Fragment {
                 try {
                     RecyclerView recyclerView = (RecyclerView) view;
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(Concept.parseJSONArray(jsonArray), mListener));
+                    recyclerView.setAdapter(new MyConceptRecyclerViewAdapter(Bookmark.parseJSONArray(jsonArray), mListener));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(linearLayoutManager);
                 } catch (JSONException e) {
@@ -72,11 +73,11 @@ public class ConceptFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnClickConceptListener) {
+            mListener = (OnClickConceptListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnClickEntityListener");
+                    + " must implement OnClickConceptListener");
         }
     }
 
@@ -86,7 +87,7 @@ public class ConceptFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Concept item);
+    public interface OnClickConceptListener {
+        void onClickConceptListener(Bookmark item);
     }
 }

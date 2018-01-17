@@ -9,16 +9,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.humber.conspectus.R;
-import edu.humber.conspectus.fragment.CategoryFragment;
-import edu.humber.conspectus.fragment.CategoryFragment.OnClickCategoryListener;
-import edu.humber.conspectus.model.Category;
+import edu.humber.conspectus.fragment.KeywordFragment;
 import edu.humber.conspectus.model.Bookmark;
-public class MyCategoryDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoryDetailRecyclerViewAdapter.ViewHolder> {
+import edu.humber.conspectus.model.Keyword;
 
-    private final List<Category> mValues;
-    private final CategoryFragment.OnClickCategoryListener mListener;
+public class MyKeywordDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyKeywordDetailRecyclerViewAdapter.ViewHolder> {
 
-    public MyCategoryDetailRecyclerViewAdapter(List<Category> items, CategoryFragment.OnClickCategoryListener listener) {
+    private final List<Keyword> mValues;
+    private final KeywordFragment.OnClickKeywordListener mListener;
+
+    public MyKeywordDetailRecyclerViewAdapter(List<Keyword> items, KeywordFragment.OnClickKeywordListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -26,16 +26,15 @@ public class MyCategoryDetailRecyclerViewAdapter extends RecyclerView.Adapter<My
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_category, parent, false);
+                .inflate(R.layout.fragment_keyword, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Score:"+mValues.get(position).getScore().toString());
-        holder.mContentView.setText("Label:"+mValues.get(position).getLabel().toString());
-
+        holder.mIdView.setText("Text:"+mValues.get(position).getText().toString());
+        holder.mContentView.setText("Relevance"+mValues.get(position).getRelevance().toString());
     }
 
     @Override
@@ -47,7 +46,7 @@ public class MyCategoryDetailRecyclerViewAdapter extends RecyclerView.Adapter<My
         private final View mView;
         private final TextView mIdView;
         private final TextView mContentView;
-        private Category mItem;
+        private Keyword mItem;
 
         private ViewHolder(View view) {
             super(view);

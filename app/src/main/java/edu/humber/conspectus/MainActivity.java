@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClickConceptListener(Bookmark item) {
+    public void onClickConceptListener(final Bookmark item) {
         try {
             ConceptDetailFragment fragment = ConceptDetailFragment.newInstance(item.getId());
             FragmentManager fragmentManager = getSupportFragmentManager();

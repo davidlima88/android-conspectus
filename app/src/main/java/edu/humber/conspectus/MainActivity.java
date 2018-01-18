@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         try {
             Fragment fragment = WebBrowserFragment.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             setTitle("Conspectus - Web Explorer");
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             item.setChecked(true);
             setTitle("Conspectus - " + item.getTitle());
         } catch (Exception e) {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
         try {
             EntityDetailFragment fragment = EntityDetailFragment.newInstance(item.getId());
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             setTitle("Conspectus - " + item.getTitle());
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
         try {
             CategoryDetailFragment fragment = CategoryDetailFragment.newInstance(item.getId());
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             setTitle("Conspectus - " + item.getTitle());
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
         try {
             KeywordDetailFragment fragment = KeywordDetailFragment.newInstance(item.getId());
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             setTitle("Conspectus - " + item.getTitle());
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,8 +185,9 @@ public class MainActivity extends AppCompatActivity
         try {
             ConceptDetailFragment fragment = ConceptDetailFragment.newInstance(item.getId());
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             setTitle("Conspectus - " + item.getTitle());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

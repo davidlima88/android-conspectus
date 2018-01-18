@@ -33,8 +33,8 @@ public class MyKeywordDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyK
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Text:"+mValues.get(position).getText().toString());
-        holder.mContentView.setText("Relevance"+mValues.get(position).getRelevance().toString());
+        holder.mIdView.setText("Text: "+mValues.get(position).getText().toString());
+        holder.mContentView.setText("Relevance "+mValues.get(position).getRelevance().toString());
     }
 
     @Override

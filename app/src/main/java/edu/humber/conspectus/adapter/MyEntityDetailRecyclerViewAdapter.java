@@ -33,8 +33,8 @@ public class MyEntityDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyEn
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Type:"+mValues.get(position).getType()+"\n");
-        holder.mContentView.setText("Text"+mValues.get(position).getText()+"\n Relevance:"+mValues.get(position).getRelevance());
+        holder.mIdView.setText("Type: "+mValues.get(position).getType()+"\n");
+        holder.mContentView.setText("Text: "+mValues.get(position).getText()+"\n\n\n\n"+"Relevance: "+mValues.get(position).getRelevance());
 
     }
 

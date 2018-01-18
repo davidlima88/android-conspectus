@@ -34,8 +34,8 @@ public class MyKeywordRecyclerViewAdapter extends RecyclerView.Adapter<MyKeyword
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Title:"+mValues.get(position).getTitle().toString());
-        holder.mContentView.setText("Keywords found:"+mValues.get(position).getKeywords().length());
+        holder.mIdView.setText("Title: "+mValues.get(position).getTitle().toString());
+        holder.mContentView.setText("Keywords found: "+mValues.get(position).getKeywords().length());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,8 +33,8 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Title:"+mValues.get(position).getTitle().toString());
-        holder.mContentView.setText("Categories found:"+mValues.get(position).getCategories().length());
+        holder.mIdView.setText("Title: "+mValues.get(position).getTitle().toString());
+        holder.mContentView.setText("Categories found: "+mValues.get(position).getCategories().length());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

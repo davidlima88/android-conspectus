@@ -33,8 +33,8 @@ public class MyCategoryDetailRecyclerViewAdapter extends RecyclerView.Adapter<My
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Score:"+mValues.get(position).getScore().toString());
-        holder.mContentView.setText("Label:"+mValues.get(position).getLabel().toString());
+        holder.mIdView.setText("Score: "+mValues.get(position).getScore().toString());
+        holder.mContentView.setText("Label: "+mValues.get(position).getLabel().toString());
 
     }
 

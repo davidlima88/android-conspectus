@@ -34,8 +34,8 @@ public class MyConceptDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyC
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Text:"+mValues.get(position).getText().toString());
-        holder.mContentView.setText("Relevance:"+mValues.get(position).getRelevance().toString()+"\n"+"Dbpedia_Resource:"+mValues.get(position).getDbpedia_resource().toString());
+        holder.mIdView.setText("Text :"+mValues.get(position).getText().toString());
+        holder.mContentView.setText("Relevance: "+mValues.get(position).getRelevance().toString()+"\n\n\n"+"Dbpedia_Resource :"+mValues.get(position).getDbpedia_resource().toString());
     }
 
     @Override

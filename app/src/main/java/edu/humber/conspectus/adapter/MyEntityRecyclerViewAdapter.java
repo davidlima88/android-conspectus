@@ -33,8 +33,8 @@ public class MyEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyEntityRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Title:"+mValues.get(position).getTitle()+"\n");
-        holder.mContentView.setText("Entities found:"+mValues.get(position).getEntities().length());
+        holder.mIdView.setText("Title: "+mValues.get(position).getTitle()+"\n");
+        holder.mContentView.setText("Entities found: "+mValues.get(position).getEntities().length());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

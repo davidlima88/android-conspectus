@@ -33,7 +33,7 @@ public class MyBookmarkRecyclerViewAdapter extends RecyclerView.Adapter<MyBookma
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId().toString());
-        holder.mContentView.setText("Bookmark Name:"+mValues.get(position).getTitle()+"\n Sentiment:"+mValues.get(position).getSentiment()+"\n Sadness:"+mValues.get(position).getSadness()+"\n Anger:"+mValues.get(position).getAnger()+"\n Disgust"+mValues.get(position).getDisgust()+"\n Joy:"+mValues.get(position).getJoy()+"\n Fear:"+mValues.get(position).getFear());
+        holder.mContentView.setText("Bookmark Name: "+mValues.get(position).getTitle()+"\n\n Sentiment: "+mValues.get(position).getSentiment()+"\n\n Sadness: "+mValues.get(position).getSadness()+"\n\n Anger: "+mValues.get(position).getAnger()+"\n\n Disgust: "+mValues.get(position).getDisgust()+"\n\n Joy: "+mValues.get(position).getJoy()+"\n\n Fear: "+mValues.get(position).getFear());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

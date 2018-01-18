@@ -34,8 +34,8 @@ public class MyConceptRecyclerViewAdapter extends RecyclerView.Adapter<MyConcept
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText("Title:"+mValues.get(position).getTitle().toString());
-        holder.mContentView.setText("Concepts found:"+mValues.get(position).getConcepts().length());
+        holder.mIdView.setText("Title: "+mValues.get(position).getTitle().toString());
+        holder.mContentView.setText("Concepts found: "+mValues.get(position).getConcepts().length());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
